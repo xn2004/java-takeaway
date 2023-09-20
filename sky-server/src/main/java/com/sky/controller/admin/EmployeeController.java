@@ -96,6 +96,8 @@ public class EmployeeController {
      * @param employeePageQueryDTO
      * @return
      */
+
+    //查询类操作需要返回数据data所以使用泛型
     @GetMapping("/page")
     @ApiOperation("员工分页查询")
     public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO){
@@ -104,5 +106,25 @@ public class EmployeeController {
         return Result.success(pageResult);
 
     }
+
+    /**
+     * 启用禁用员工账号
+     * @param status
+     * @param id
+     * @return
+     */
+
+    //非查询类操作不使用泛型 只需要返回code
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用员工账号")
+    public Result startOrStop(@PathVariable Integer status,Long id){
+        log.info("启用禁用员工账号:{},{}",status,id);
+        employeeService.startOrStop(status,id);
+        return Result.success();
+
+    }
+
+
+
 
 }
